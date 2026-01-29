@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise 💕</title>
+    <title>Heartopia Surprise 💕</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root { --paper: #fffcf2; --text: #403d39; --heart: #d81b60; --bg-grad: linear-gradient(45deg, #ffdde1, #ee9ca7, #ffdde1, #ffc3a0); }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Comic Sans MS", "Arial", sans-serif; }
         
-        /* FLOATING EMOJIS LAYER */
+        /* FLOATING EMOJIS */
         .emoji-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .floating-emoji { position: absolute; font-size: 1.5rem; opacity: 0.6; animation: float 15s linear infinite; }
         @keyframes float {
             0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
             10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
@@ -37,24 +36,29 @@
         .page-section { display: none; min-height: 100vh; width: 100%; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; position: relative; z-index: 1; }
         .active { display: flex !important; }
 
-        img { border: none !important; }
+        img { border: none !important; max-width: 100%; }
 
         #countdown-box { background: rgba(255, 255, 255, 0.2); padding: 40px; border-radius: 30px; backdrop-filter: blur(8px); border: 2px solid rgba(255, 255, 255, 0.3); }
         .enter-btn { padding: 15px 35px; font-size: 1.3rem; border-radius: 50px; border: none; cursor: pointer; background: #ff1493; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         
-        .split-container { display: flex; gap: 20px; max-width: 950px; width: 95%; align-items: center; }
-        .abstract-box { flex: 1; background: #ffb6c1; border: 5px solid black; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; min-height: 450px; box-shadow: 12px 12px 0px black; }
-        .abstract-text { font-size: 2.5rem; color: black; font-weight: 900; text-align: left; line-height: 0.9; text-transform: uppercase; }
-        .abstract-btn { background: black; color: white; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; display: block; width: 100%; }
+        /* SUCCESS PAGE BOXES */
+        .split-container { display: flex; gap: 20px; max-width: 1000px; width: 95%; align-items: center; justify-content: center; }
+        .abstract-box { flex: 1; background: #ffb6c1; border: 5px solid black; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; min-height: 450px; box-shadow: 12px 12px 0px black; text-align: left; }
+        .abstract-text { font-size: 2.5rem; color: black; font-weight: 900; line-height: 0.9; text-transform: uppercase; margin-bottom: 10px; }
+        .abstract-btn { background: black; color: white; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; display: block; width: 100%; margin-top: auto; }
         
-        .center-png { width: 220px; height: auto; }
+        .center-png-container { flex: 0 0 250px; display: flex; justify-content: center; align-items: center; }
+        .center-png { width: 100%; height: auto; border-radius: 0; }
 
+        /* LETTERS */
         .envelope-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 900px; margin: 20px auto; }
         .letter-btn { padding: 12px 20px; background: var(--paper); color: #6d4c41; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; cursor: pointer; font-style: italic; box-shadow: 4px 4px 0px rgba(0,0,0,0.15); transition: 0.2s; }
-        .letter-btn:hover { transform: scale(1.05); }
         .letter-content { display: none; background: var(--paper); padding: 40px; border-radius: 15px; max-width: 650px; margin: 30px auto; color: var(--text); border-left: 10px solid var(--heart); text-align: left; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
 
-        @media (max-width: 850px) { .split-container { flex-direction: column; } .center-png { width: 160px; order: -1; } }
+        @media (max-width: 850px) { 
+            .split-container { flex-direction: column; } 
+            .center-png-container { order: -1; margin-bottom: 20px; flex: 0 0 auto; width: 200px; }
+        }
     </style>
 </head>
 <body>
@@ -87,36 +91,38 @@
             <img src="8e621fbc59509edb76b7fcf1f5e6f704.jpg" alt="Hamster" style="width:150px; margin:10px; border-radius: 15px;">
             <img src="24_01_2026 20_19_15.png" alt="Squirrel" style="width:150px; margin:10px; border-radius: 15px;">
         </div>
-        <h1 style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Will you be my valentines? ✨</h1>
+        <h1>Will you be my valentines? ✨</h1>
         <div style="position:relative; width:300px; height:160px; margin:20px auto;">
-            <button id="yesBtn" style="background:#ff1493; color:white; width:140px; height:60px; border:none; border-radius:50px; position:absolute; left:50%; transform:translateX(-50%); cursor:pointer; font-weight:bold; font-size:1.4rem; z-index:10; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">YES!</button>
+            <button id="yesBtn" style="background:#ff1493; color:white; width:140px; height:60px; border:none; border-radius:50px; position:absolute; left:50%; transform:translateX(-50%); cursor:pointer; font-weight:bold; font-size:1.4rem; z-index:10;">YES!</button>
             <button id="noBtn" style="background:white; color:#ff69b4; width:120px; height:50px; border:none; border-radius:50px; position:absolute; bottom:0; left:50%; transform:translateX(-50%); cursor:pointer;">No...</button>
         </div>
     </div>
 
     <div id="success-section" class="page-section">
         <div class="split-container">
-            <div class="abstract-box" style="transform: rotate(-1.5deg);">
+            <div class="abstract-box" style="transform: rotate(-1deg);">
                 <div class="abstract-text">LET HIM<br>KNOW!</div>
-                <p style="color: black; margin: 15px 0;">Yippie! Well since we can't do something physical I made you something in heartopia that I hope you will enjoy. Click the button to tell me when you're hopping on the game.</p>
+                <p style="color: black; margin: 15px 0; font-size: 0.95rem;">Yippie! Well since we can't do something physical I made you something in heartopia that I hope you will enjoy. Click the button to tell me when you're hopping on the game.</p>
                 <form action="https://formspree.io/f/mnjvpplw" method="POST">
-                    <input type="hidden" name="Message" value="She said YES! (And she's coming to Heartopia) 💕">
+                    <input type="hidden" name="Message" value="She said YES! (Coming to Heartopia) 💕">
                     <button type="submit" class="abstract-btn" style="background:#ff3e3e; border:3px solid black;">SEND SIGNAL ⚡</button>
                 </form>
             </div>
 
-            <img src="26_01_2026 12_41_58.png" alt="Special Memory" class="center-png">
+            <div class="center-png-container">
+                <img src="26_01_2026 12_41_58.png" alt="Special Memory" class="center-png">
+            </div>
 
-            <div class="abstract-box" style="transform: rotate(1.5deg);">
+            <div class="abstract-box" style="transform: rotate(1deg);">
                 <div class="abstract-text">FOR YOUR<br>EYES ONLY</div>
-                <p style="color: black; margin: 15px 0;">Welcome to your digital post office with small notes that I hope will help you when you need them the most.</p>
+                <p style="color: black; margin: 15px 0; font-size: 0.95rem;">Welcome to your digital post office with small notes that I hope will help you when you need them the most.</p>
                 <button class="abstract-btn" onclick="showSection('keepsake-section')">OPEN LETTERS ✉️</button>
             </div>
         </div>
     </div>
 
     <div id="keepsake-section" class="page-section">
-        <h1 style="color: #ad1457; font-size: 2.5rem; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(255,255,255,0.5);">✉️ Post Office</h1>
+        <h1 style="color: #ad1457; font-size: 2.5rem; margin-bottom: 20px;">✉️ Post Office</h1>
         <div class="envelope-grid" id="grid"></div>
         <div id="letter-display" class="letter-content">
             <h2 id="l-title" style="color:var(--heart); margin-bottom:15px; font-family:'Brush Script MT', cursive; font-size:2.5rem;"></h2>
@@ -125,7 +131,7 @@
     </div>
 
     <script>
-        // EMOJI SYSTEM
+        // EMOJIS
         const emojis = ['💖', '✨', '🌸', '☁️', '🧸', '🍓', '💌'];
         function createEmoji() {
             const container = document.getElementById('emoji-bg');
@@ -139,7 +145,7 @@
         }
         setInterval(createEmoji, 1500);
 
-        // MUSIC PLAYLIST
+        // PLAYLIST
         const playlist = [
             { title: "The Cutest Pair - Regina Song", file: "SpotiDownloader.com - the cutest pair - Regina Song[rebalanced].mp3" },
             { title: "Call U Mine - J3R0", file: "SpotiDownloader.com - Call u Mine_ - J3R0 (mp3cut.net).mp3" },
@@ -168,7 +174,7 @@
             bgMusic.src = playlist[currentIdx].file;
             titleDisplay.innerText = "🎵 " + playlist[currentIdx].title;
             bgMusic.volume = 0.4;
-            bgMusic.play().catch(() => console.log("User interaction required"));
+            bgMusic.play();
             playPauseBtn.innerText = "⏸";
         }
 
@@ -189,7 +195,7 @@
 
         bgMusic.onended = nextSong;
 
-        // TRAP BUTTONS
+        // TRAP
         const yesBtn = document.getElementById("yesBtn"), noBtn = document.getElementById("noBtn");
         let scale = 1;
         noBtn.addEventListener("click", () => {
@@ -203,7 +209,7 @@
             showSection('success-section');
         });
 
-        // ORIGINAL TEXT CONTENT
+        // LETTERS
         const letters = {
             start: { t: "...You first receive this", h: "Hello Precious,", p: "I built this little corner of the world just for you. I know life can get heavy sometimes, and I can’t always be right there to hold your hand, so I wanted to give you a way to find me whenever you need a lift. Whether you’re celebrating a win or just trying to get through a long day, I hope these letters give you the 'bump up' you deserve. You are my world, and I love you more than words can say." },
             sad: { t: "...Feeling shitty", h: "Read this...", p: "Hey mon coeur, take a deep breath for me. I’m so sorry you’re going through it right now. I wish I could reach through this screen just to hold you for a while. You have conquered every hard day you’ve ever faced, and you’re going to conquer this too. You’re a powerhouse, my dear, even when you don't feel like it. I’m right here in your corner, always." },
