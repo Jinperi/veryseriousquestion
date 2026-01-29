@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise 💕</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --paper: #fffcf2;
+            --text: #403d39;
+            --heart: #d81b60;
+            --bg-grad: linear-gradient(135deg, #ffdde1, #ee9ca7, #ffdde1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Comic Sans MS", "Arial", sans-serif; }
+
+        body {
+            background: var(--bg-grad);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+
+        .page-section { display: none; min-height: 100vh; width: 100%; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; }
+        .active { display: flex !important; }
+
+        /* SECTION 1: HOME/COUNTDOWN */
+        #countdown-box { background: rgba(255, 255, 255, 0.15); padding: 40px; border-radius: 30px; backdrop-filter: blur(8px); border: 2px solid rgba(255, 255, 255, 0.3); }
+        #timer { font-size: 2.5rem; font-weight: bold; margin: 20px 0; }
+        .enter-btn { padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; border: none; cursor: pointer; transition: 0.3s; background: #ff1493; color: white; box-shadow: 0 5px 15px rgba(255,20,147,0.4); }
+        .enter-btn:disabled { background: #ccc; cursor: not-allowed; opacity: 0.6; }
+
+        /* SECTION 2: TRAP */
+        .buttons { position: relative; width: 300px; height: 160px; margin: 20px auto; }
+        #yesBtn, #noBtn { cursor: pointer; border: none; border-radius: 50px; font-weight: bold; position: absolute; transition: all 0.3s; }
+        #yesBtn { background: #ff1493; color: white; width: 140px; height: 60px; left: 50%; transform: translateX(-50%); z-index: 5; font-size: 1.4rem;}
+        #noBtn { background: #fff; color: #ff69b4; width: 120px; height: 50px; bottom: 0; left: 50%; transform: translateX(-50%); }
+        .img-row img { width: 150px; border-radius: 15px; border: 4px solid white; margin: 10px; }
+
+        /* SECTION 3: SPLIT ABSTRACT YES SCREEN */
+        .split-container { display: flex; gap: 20px; max-width: 900px; width: 95%; }
+        .abstract-box { flex: 1; background: #ffb6c1; border: 5px solid black; padding: 40px 20px; display: flex; flex-direction: column; justify-content: space-between; min-height: 500px; box-shadow: 12px 12px 0px black; }
+        .box-left { transform: rotate(-1.5deg); }
+        .box-right { transform: rotate(1.5deg); }
+        .abstract-text { font-size: 3rem; color: black; font-weight: 900; text-align: left; line-height: 0.9; text-transform: uppercase; }
+        .abstract-btn { background: black; color: white; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.2s; font-size: 1rem; }
+        .abstract-btn:hover { background: white; color: black; transform: translateY(-3px); }
+        .notify-style { background: #ff3e3e; border: 3px solid black; }
+
+        /* SECTION 4: KEEPSAKE / POST OFFICE */
+        #keepsake-section { background: linear-gradient(-45deg, #fce4ec, #e8eaf6, #fff3e0, #f1f8e9); color: var(--text); padding: 40px 10px; }
+        .envelope-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 900px; margin: 20px auto; }
+        .letter-btn { padding: 12px 18px; background: var(--paper); color: #6d4c41; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; cursor: pointer; text-decoration: none; font-style: italic; box-shadow: 3px 3px 0px rgba(0,0,0,0.1); transition: 0.3s; font-size: 0.9rem; }
+        .letter-content { background: var(--paper); padding: 40px; border-radius: 10px; max-width: 650px; margin: 20px auto; color: var(--text); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-left: 8px solid var(--heart); text-align: left; }
+        .letter-content h2 { font-family: 'Brush Script MT', cursive; font-size: 2.5rem; color: #ad1457; margin-bottom: 15px; }
+
+        @media (max-width: 700px) { .split-container { flex-direction: column; } .box-left, .box-right { transform: none; } }
+    </style>
+</head>
+<body>
+
+    <audio id="noMusic" src="original sound - roadsps2_musicaldown.com_1769674850-[AudioTrimmer.com].mp3"></audio>
+    <audio id="yesMusic" src="Yayyy! Sound Effect - Sound Effects.mp3"></audio>
+
+    <div id="home-section" class="page-section active">
+        <div id="countdown-box">
+            <h1>Something special is coming...</h1>
+            <div id="timer">00d 00h 00m 00s</div>
+            <button id="gateButton" class="enter-btn" onclick="showSection('trap-section')">Open My Heart 💖</button>
+        </div>
+    </div>
+
+    <div id="trap-section" class="page-section">
+        <div class="img-row">
+            <img src="8e621fbc59509edb76b7fcf1f5e6f704.jpg" alt="Hamster">
+            <img src="24_01_2026 20_19_15.png" alt="Squirrel">
+        </div>
+        <h1>Will you be my valentines? ✨</h1>
+        <div class="buttons">
+            <button id="yesBtn">YES! 💖</button>
+            <button id="noBtn">No...</button>
+        </div>
+    </div>
+
+    <div id="success-section" class="page-section">
+        <div class="split-container">
+            <div class="abstract-box box-left">
+                <div class="abstract-text">LET HIM<br>KNOW!</div>
+                <p style="color: black; margin: 15px 0; font-size: 0.9rem;">Yippie! Well since we can't do something physical I made you something in heartopia that I hope you will enjoy. Click the button or text me to tell me when you're hopping on the game.</p>
+                <a href="https://formspree.io/f/your-id-here" target="_blank" class="abstract-btn notify-style">SEND SIGNAL ⚡</a>
+            </div>
+            <div class="abstract-box box-right">
+                <div class="abstract-text">FOR YOUR<br>EYES ONLY</div>
+                <p style="color: black; margin: 15px 0; font-size: 0.9rem;">Welcome to your post office with small notes that I hope will help you when you need them the most.</p>
+                <button class="abstract-btn" onclick="showSection('keepsake-section')">OPEN POST OFFICE ✉️</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="keepsake-section" class="page-section">
+        <h1 style="color: #ad1457; font-size: 2.5rem; margin-bottom: 20px;">✉️ Post Office</h1>
+        <div class="envelope-grid" id="grid"></div>
+        <div id="letter-display" class="letter-content" style="display:none; margin-top: 30px;">
+            <h2 id="l-title"></h2>
+            <p id="l-text" style="line-height: 1.8; font-family: 'Georgia', serif;"></p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // 1. COUNTDOWN LOGIC
+        const targetDate = new Date("February 14, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000), m = Math.floor((diff % 3600000) / 60000), s = Math.floor((diff % 60000) / 1000);
+            document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+            
+            // To LOCK the site until Feb 14th, uncomment the line below:
+            // if (diff > 0) { document.getElementById("gateButton").disabled = true; }
+        }, 1000);
+
+        // 2. TRAP LOGIC
+        const yesBtn = document.getElementById("yesBtn"), noBtn = document.getElementById("noBtn");
+        let scale = 1;
+        noBtn.addEventListener("click", () => {
+            document.getElementById("noMusic").play();
+            scale += 0.6; yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
+            if(scale > 5) { noBtn.style.display="none"; yesBtn.style.width="100vw"; yesBtn.style.height="100vh"; yesBtn.innerText="YES! 💕"; }
+        });
+        yesBtn.addEventListener("click", () => {
+            document.getElementById("yesMusic").play();
+            confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+            showSection('success-section');
+        });
+
+        // 3. FULL LETTER DATA
+        const letters = {
+            start: { t: "...You first receive this", h: "Hello Precious,", p: "I built this little corner of the world just for you. I know life can get heavy sometimes, and I can’t always be right there to hold your hand, so I wanted to give you a way to find me whenever you need a lift. Whether you’re celebrating a win or just trying to get through a long day, I hope these letters give you the 'bump up' you deserve. You are my world, and I love you more than words can say." },
+            sad: { t: "...Feeling shitty", h: "Read this...", p: "Hey mon coeur, take a deep breath for me. I’m so sorry you’re going through it right now. I wish I could reach through this screen just to hold you for a while. You have conquered every hard day you’ve ever faced, and you’re going to conquer this too. You’re a powerhouse, my dear, even when you don't feel like it. I’m right here in your corner, always." },
+            happy: { t: "...Really happy", h: "Yippie 🤸‍♂️!", p: "Im glad your feeling happy. Your happiness is something I value alot and you being happy makes me happy. Keep up tha beautiful smile my dear." },
+            angry: { t: "...Mad at me", h: "I'm sorry...", p: "I am so sorry for making you feel this way. You have every right to be mad at me, and I take full responsibility for my part in this. I value us too much to let my mistakes stand between us. I’m sorry, Precious—please forgive me." },
+            reminder: { t: "...A reminder", h: "A Little Reminder", p: "You are the most important person in the whole world in my eyes. Ive been in love with you ever since December 11th 2021 and my feelings for you have never waverd, infact they grow more and more as the days go by.." },
+            missme: { t: "...Miss me", h: "I miss you too.", p: "Distance is just a test to see how far love can travel. Every second is just a countdown until I see you again. Plus im always a call or text away, any time of the day. I am always here tho not as phycically as i would wish but still i am always here for you." },
+            bored: { t: "...Miss red visits", h: "Stay healthy...", p: "Make sure to strech even a little or be active especially if the pain is getting unbearable, also eat and drink enough, if you use the hot water bottle, dont use it too much cuz you might end up cooking your skin, also rest if you can, and i hope they will not be painful and sorry the cramps are hurting you." },
+            stressed: { t: "...Stressed", h: "Deep Breaths.", p: "If you survived Kenyan high school you can survive anything the world throws at you, take a step back, asses your situation and see what your missing, and if you neeed my help im here for you." },
+            lonely: { t: "...Feeling sick", h: "My poor baby.", p: "Im sorry your feeling sick, if its a common like breathing system one hot lemon tea should help you feel better, also take medicine if you can and if it gets too much please go see a doctor, im wishing you a speedy recovery my dear." },
+            laugh: { t: "...Need a laugh", h: "A Quick Smile.", p: "Think about the most embarrassing thing that ever happened to me or a story from my childhood stupidity. There. Better? I'd do it again just to hear you laugh." },
+            sleep: { t: "...Can't sleep", h: "Dr. JM will see you now.", p: "Im always a call away if you need your medicine, and if for some reason im not watch one of the videos i sent you." },
+            longday: { t: "...Long day", h: "Exhale.", p: "The day is finally over. You can finnaly bed rot in peace. Pat yourself on the back because i know you did a good job my dear. You've earned this rest." },
+            future: { t: "...The future", h: "Our Future.", p: "I can't see exactly what the future holds, but as long as I see you in it, I know it’s a beautiful one. You aren't just a part of my future; you’re the part that makes it worth reaching for." }
+        };
+
+        const grid = document.getElementById('grid');
+        Object.keys(letters).forEach(key => {
+            const btn = document.createElement('button');
+            btn.className = 'letter-btn';
+            btn.innerText = letters[key].t;
+            btn.onclick = () => {
+                document.getElementById('letter-display').style.display = 'block';
+                document.getElementById('l-title').innerText = letters[key].h;
+                document.getElementById('l-text').innerText = letters[key].p;
+                document.getElementById('letter-display').scrollIntoView({behavior:'smooth'});
+            };
+            grid.appendChild(btn);
+        });
+    </script>
+</body>
+</html>
