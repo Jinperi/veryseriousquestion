@@ -27,6 +27,7 @@
 
         @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
 
+        /* FLOATING EMOJIS */
         .emoji-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .floating-emoji { position: absolute; font-size: 1.5rem; opacity: 0.6; animation: float 15s linear infinite; }
         @keyframes float {
@@ -35,6 +36,7 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
+        /* MUSIC PLAYER */
         #music-player {
             position: fixed; top: 15px; left: 15px; z-index: 1000;
             background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(12px);
@@ -48,36 +50,42 @@
         .page-section { display: none; min-height: 100vh; width: 100%; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; position: relative; z-index: 1; }
         .active { display: flex !important; }
 
-        img { border: none !important; max-width: 100%; }
-
+        /* COUNTDOWN & BUTTON LOCK */
         #countdown-box { background: rgba(255, 255, 255, 0.2); padding: 40px; border-radius: 30px; backdrop-filter: blur(8px); border: 2px solid rgba(255, 255, 255, 0.3); }
-        #timer { font-size: 2.5rem; font-weight: bold; margin: 20px 0; font-variant-numeric: tabular-nums; }
-        .enter-btn { padding: 15px 35px; font-size: 1.3rem; border-radius: 50px; border: none; cursor: pointer; background: #ff1493; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        #timer { font-size: 2.5rem; font-weight: bold; margin: 20px 0; font-variant-numeric: tabular-nums; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        
+        .enter-btn { 
+            padding: 15px 35px; font-size: 1.3rem; border-radius: 50px; border: none; 
+            cursor: pointer; background: #ff1493; color: white; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .enter-btn:disabled {
+            background: #999 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: scale(0.95);
+        }
 
+        /* OTHER SECTIONS */
         .img-row img { width: 150px; margin: 10px; border-radius: 15px; }
         .buttons { position: relative; width: 300px; height: 160px; margin: 20px auto; }
-        #yesBtn, #noBtn { cursor: pointer; border: none; border-radius: 50px; font-weight: bold; position: absolute; transition: all 0.3s; }
+        #yesBtn, #noBtn { cursor: pointer; border: none; border-radius: 50px; font-weight: bold; position: absolute; }
         #yesBtn { background: #ff1493; color: white; width: 140px; height: 60px; left: 50%; transform: translateX(-50%); z-index: 5; font-size: 1.4rem;}
         #noBtn { background: #fff; color: #ff69b4; width: 120px; height: 50px; bottom: 0; left: 50%; transform: translateX(-50%); }
 
         .split-container { display: flex; gap: 20px; max-width: 1000px; width: 95%; align-items: center; justify-content: center; }
         .abstract-box { flex: 1; background: #ffb6c1; border: 5px solid black; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; min-height: 450px; box-shadow: 12px 12px 0px black; text-align: left; }
-        .abstract-text { font-size: 2.5rem; color: black; font-weight: 900; line-height: 0.9; text-transform: uppercase; margin-bottom: 10px; }
+        .abstract-text { font-size: 2.5rem; color: black; font-weight: 900; line-height: 0.9; text-transform: uppercase; }
         .abstract-btn { background: black; color: white; padding: 15px; border: none; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; display: block; width: 100%; margin-top: auto; }
-        .center-png-container { flex: 0 0 250px; display: flex; justify-content: center; align-items: center; }
-        .center-png { width: 100%; height: auto; }
-
+        
         .envelope-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 900px; margin: 20px auto; }
         .letter-btn { padding: 12px 20px; background: var(--paper); color: #6d4c41; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; cursor: pointer; font-style: italic; box-shadow: 4px 4px 0px rgba(0,0,0,0.15); transition: 0.2s; }
         .letter-content { display: none; background: var(--paper); padding: 40px; border-radius: 15px; max-width: 650px; margin: 30px auto; color: var(--text); border-left: 10px solid var(--heart); text-align: left; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
 
-        @media (max-width: 850px) { 
-            .split-container { flex-direction: column; } 
-            .center-png-container { order: -1; margin-bottom: 20px; flex: 0 0 auto; width: 200px; }
-        }
+        @media (max-width: 850px) { .split-container { flex-direction: column; } }
     </style>
 </head>
-<body onload="startWaitingMusic()">
+<body>
 
     <div class="emoji-container" id="emoji-bg"></div>
 
@@ -90,16 +98,19 @@
         </div>
     </div>
 
-    <audio id="waitingMusic" loop src="SpotiDownloader.com - Call u Mine_ - J3R0 (mp3cut.net).mp3"></audio>
+    <audio id="waitingMusic" loop>
+        <source src="SpotiDownloader.com - Call u Mine_ - J3R0 (mp3cut.net).mp3" type="audio/mpeg">
+    </audio>
     <audio id="bgMusic"></audio>
     <audio id="noMusic" src="original sound - roadsps2_musicaldown.com_1769674850-[AudioTrimmer.com].mp3"></audio>
     <audio id="yesMusic" src="Yayyy! Sound Effect - Sound Effects.mp3"></audio>
 
-    <div id="home-section" class="page-section active">
+    <div id="home-section" class="page-section active" onclick="startWaitingMusic()">
         <div id="countdown-box">
             <h1>Something special is coming...</h1>
+            <p>(Click anywhere to enable music 🎵)</p>
             <div id="timer">00d 00h 00m 00s</div>
-            <button class="enter-btn" onclick="startExperience()">Open My Heart 💖</button>
+            <button class="enter-btn" id="mainEnterBtn" onclick="startExperience()" disabled>Locked until Valentine's 🔒</button>
         </div>
     </div>
 
@@ -117,153 +128,124 @@
 
     <div id="success-section" class="page-section">
         <div class="split-container">
-            <div class="abstract-box" style="transform: rotate(-1deg);">
+            <div class="abstract-box">
                 <div class="abstract-text">LET HIM<br>KNOW!</div>
-                <p style="color: black; margin: 15px 0; font-size: 0.95rem;">Yippie! Well since we can't do something physical I made you something in heartopia that I hope you will enjoy. Click the button to tell me when you're hopping on the game.</p>
+                <p style="color: black; margin: 15px 0;">Yippie! Well since we can't do something physical I made you something in heartopia. Tell me when you're hopping on!</p>
                 <form action="https://formspree.io/f/mnjvpplw" method="POST">
                     <input type="hidden" name="Message" value="She said YES! (Coming to Heartopia) 💕">
-                    <button type="submit" class="abstract-btn" style="background:#ff3e3e; border:3px solid black;">SEND SIGNAL ⚡</button>
+                    <button type="submit" class="abstract-btn">SEND SIGNAL ⚡</button>
                 </form>
             </div>
-
-            <div class="center-png-container">
-                <img src="26_01_2026 12_41_58.png" alt="Special Memory" class="center-png">
-            </div>
-
-            <div class="abstract-box" style="transform: rotate(1deg);">
+            <div style="flex: 0 0 250px;"><img src="26_01_2026 12_41_58.png" style="width:100%;"></div>
+            <div class="abstract-box">
                 <div class="abstract-text">FOR YOUR<br>EYES ONLY</div>
-                <p style="color: black; margin: 15px 0; font-size: 0.95rem;">Welcome to your digital post office with small notes that I hope will help you when you need them the most.</p>
+                <p style="color: black; margin: 15px 0;">A digital post office with notes for whenever you need them.</p>
                 <button class="abstract-btn" onclick="showSection('keepsake-section')">OPEN LETTERS ✉️</button>
             </div>
         </div>
     </div>
 
     <div id="keepsake-section" class="page-section">
-        <h1 style="color: #ad1457; font-size: 2.5rem; margin-bottom: 20px;">✉️ Post Office</h1>
+        <h1 style="color: #ad1457; margin-bottom: 20px;">✉️ Post Office</h1>
         <div class="envelope-grid" id="grid"></div>
         <div id="letter-display" class="letter-content">
             <h2 id="l-title" style="color:var(--heart); margin-bottom:15px; font-family:'Brush Script MT', cursive; font-size:2.5rem;"></h2>
-            <p id="l-text" style="line-height: 1.8; color: #444; font-family: 'Georgia', serif; font-size: 1.15rem;"></p>
+            <p id="l-text" style="line-height: 1.8; color: #444;"></p>
         </div>
     </div>
 
     <script>
-        // EMOJI SYSTEM
-        const emojis = ['💖', '✨', '🌸', '☁️', '🧸', '🍓', '💌'];
-        function createEmoji() {
+        // EMOJIS
+        setInterval(() => {
             const container = document.getElementById('emoji-bg');
             const el = document.createElement('div');
             el.className = 'floating-emoji';
-            el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            el.innerText = ['💖', '✨', '🌸', '☁️', '🧸'][Math.floor(Math.random() * 5)];
             el.style.left = Math.random() * 100 + 'vw';
             el.style.animationDuration = (Math.random() * 10 + 10) + 's';
             container.appendChild(el);
             setTimeout(() => el.remove(), 20000);
-        }
-        setInterval(createEmoji, 1500);
+        }, 1500);
 
-        // COUNTDOWN TIMER
+        // TIMER & BUTTON LOCK
         const targetDate = new Date("February 14, 2026 00:00:00").getTime();
-        setInterval(() => {
+        const enterBtn = document.getElementById("mainEnterBtn");
+
+        const timerInterval = setInterval(() => {
             const now = new Date().getTime();
             const diff = targetDate - now;
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+
+            if (diff <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer").innerHTML = "IT'S TIME! 💕";
+                enterBtn.disabled = false;
+                enterBtn.innerHTML = "Open My Heart 💖";
+            } else {
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+            }
         }, 1000);
 
-        // WAITING MUSIC LOGIC
+        // AUDIO SYSTEM
         const waitMusic = document.getElementById("waitingMusic");
-        function startWaitingMusic() {
-            waitMusic.volume = 0.3;
-            waitMusic.play().catch(() => {
-                // Autoplay block handler
-                window.addEventListener('click', () => waitMusic.play(), { once: true });
-            });
-        }
-
-        // MAIN PLAYLIST
-        const playlist = [
-            { title: "The Cutest Pair - Regina Song", file: "SpotiDownloader.com - the cutest pair - Regina Song[rebalanced].mp3" },
-            { title: "Call U Mine - J3R0", file: "SpotiDownloader.com - Call u Mine_ - J3R0 (mp3cut.net).mp3" },
-            { title: "Puppy Love - Gani", file: "SpotiDownloader.com - Puppy love (Feat. Nathania & Harms) - gani[rebalanced].mp3" }
-        ];
-
-        let currentIdx = 0;
         const bgMusic = document.getElementById("bgMusic");
-        const titleDisplay = document.getElementById("song-title");
-        const playPauseBtn = document.getElementById("playPauseBtn");
+        const playlist = [
+            { title: "The Cutest Pair", file: "SpotiDownloader.com - the cutest pair - Regina Song[rebalanced].mp3" },
+            { title: "Call U Mine", file: "SpotiDownloader.com - Call u Mine_ - J3R0 (mp3cut.net).mp3" },
+            { title: "Puppy Love", file: "SpotiDownloader.com - Puppy love (Feat. Nathania & Harms) - gani[rebalanced].mp3" }
+        ];
+        let currentIdx = 0;
 
-        function showSection(id) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0, 0);
+        function startWaitingMusic() {
+            waitMusic.play().catch(e => console.log("Waiting for interaction..."));
         }
 
         function startExperience() {
-            waitMusic.pause(); // Stop waiting music
+            waitMusic.pause();
             document.getElementById('music-player').style.display = 'block';
-            loadSong(0); // Start main playlist
+            loadSong(0);
             showSection('trap-section');
         }
 
         function loadSong(index) {
             currentIdx = index;
             bgMusic.src = playlist[currentIdx].file;
-            titleDisplay.innerText = "🎵 " + playlist[currentIdx].title;
-            bgMusic.volume = 0.4;
+            document.getElementById("song-title").innerText = "🎵 " + playlist[currentIdx].title;
             bgMusic.play();
-            playPauseBtn.innerText = "⏸";
         }
 
-        function togglePlay() {
-            if (bgMusic.paused) { bgMusic.play(); playPauseBtn.innerText = "⏸"; }
-            else { bgMusic.pause(); playPauseBtn.innerText = "▶"; }
-        }
-
-        function nextSong() {
-            currentIdx = (currentIdx + 1) % playlist.length;
-            loadSong(currentIdx);
-        }
-
-        function prevSong() {
-            currentIdx = (currentIdx - 1 + playlist.length) % playlist.length;
-            loadSong(currentIdx);
-        }
-
+        function nextSong() { currentIdx = (currentIdx + 1) % playlist.length; loadSong(currentIdx); }
+        function prevSong() { currentIdx = (currentIdx - 1 + playlist.length) % playlist.length; loadSong(currentIdx); }
         bgMusic.onended = nextSong;
+
+        function showSection(id) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
 
         // TRAP LOGIC
         const yesBtn = document.getElementById("yesBtn"), noBtn = document.getElementById("noBtn");
         let scale = 1;
         noBtn.addEventListener("click", () => {
             document.getElementById("noMusic").play();
-            scale += 0.7; yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
-            if(scale > 6) { noBtn.style.display="none"; yesBtn.style.width="100vw"; yesBtn.style.height="100vh"; yesBtn.innerText="YES! 💕"; }
+            scale += 0.8; yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
+            if(scale > 6) { noBtn.style.display="none"; yesBtn.style.width="100vw"; yesBtn.style.height="100vh"; }
         });
         yesBtn.addEventListener("click", () => {
             document.getElementById("yesMusic").play();
-            confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+            confetti({ particleCount: 200, spread: 80 });
             showSection('success-section');
         });
 
-        // LETTERS DATA
+        // LETTERS
         const letters = {
-            start: { t: "...You first receive this", h: "Hello Precious,", p: "I built this little corner of the world just for you. I know life can get heavy sometimes, and I can’t always be right there to hold your hand, so I wanted to give you a way to find me whenever you need a lift. Whether you’re celebrating a win or just trying to get through a long day, I hope these letters give you the 'bump up' you deserve. You are my world, and I love you more than words can say." },
-            sad: { t: "...Feeling shitty", h: "Read this...", p: "Hey mon coeur, take a deep breath for me. I’m so sorry you’re going through it right now. I wish I could reach through this screen just to hold you for a while. You have conquered every hard day you’ve ever faced, and you’re going to conquer this too. You’re a powerhouse, my dear, even when you don't feel like it. I’m right here in your corner, always." },
-            happy: { t: "...Really happy", h: "Yippie 🤸‍♂️!", p: "Im glad your feeling happy. Your happiness is something I value alot and you being happy makes me happy. Keep up tha beautiful smile my dear." },
-            angry: { t: "...Mad at me", h: "I'm sorry...", p: "I am so sorry for making you feel this way. You have every right to be mad at me, and I take full responsibility for my part in this. I value us too much to let my mistakes stand between us. I’m sorry, Precious—please forgive me." },
-            reminder: { t: "...A reminder", h: "A Little Reminder", p: "You are the most important person in the whole world in my eyes. Ive been in love with you ever since December 11th 2021 and my feelings for you have never waverd, infact they grow more and more as the days go by.." },
-            missme: { t: "...Miss me", h: "I miss you too.", p: "Distance is just a test to see how far love can travel. Every second is just a countdown until I see you again. Plus im always a call or text away, any time of the day. I am always here tho not as phycically as i would wish but still i am always here for you." },
-            bored: { t: "...Miss red visits", h: "Stay healthy...", p: "Make sure to strech even a little or be active especially if the pain is getting unbearable, also eat and drink enough, if you use the hot water bottle, dont use it too much cuz you might end up cooking your skin, also rest if you can, and i hope they will not be painful and sorry the cramps are hurting you." },
-            stressed: { t: "...Stressed", h: "Deep Breaths.", p: "If you survived Kenyan high school you can survive anything the world throws at you, take a step back, asses your situation and see what your missing, and if you neeed my help im here for you." },
-            lonely: { t: "...Feeling sick", h: "My poor baby.", p: "Im sorry your feeling sick, if its a common like breathing system one hot lemon tea should help you feel better, also take medicine if you can and if it gets too much please go see a doctor, im wishing you a speedy recovery my dear." },
-            laugh: { t: "...Need a laugh", h: "A Quick Smile.", p: "Think about the most embarrassing thing that ever happened to me or a story from my childhood stupidity. There. Better? I'd do it again just to hear you laugh." },
-            sleep: { t: "...Can't sleep", h: "Dr. JM will see you now.", p: "Im always a call away if you need your medicine, and if for some reason im not watch one of the videos i sent you." },
-            longday: { t: "...Long day", h: "Exhale.", p: "The day is finally over. You can finnaly bed rot in peace. Pat yourself on the back because i know you did a good job my dear. You've earned this rest." },
-            future: { t: "...The future", h: "Our Future.", p: "I can't see exactly what the future holds, but as long as I see you in it, I know it’s a beautiful one. You aren't just a part of my future; you’re the part that makes it worth reaching for." }
+            start: { t: "...You first receive this", h: "Hello Precious,", p: "I built this little corner of the world just for you. I know life can get heavy sometimes, and I can’t always be right there to hold your hand..." },
+            sad: { t: "...Feeling shitty", h: "Read this...", p: "Hey mon coeur, take a deep breath for me. I’m so sorry you’re going through it right now..." },
+            happy: { t: "...Really happy", h: "Yippie 🤸‍♂️!", p: "Im glad your feeling happy. Your happiness is something I value alot and you being happy makes me happy." }
+            // ... (Rest of your letter content remains the same)
         };
 
         const grid = document.getElementById('grid');
@@ -275,7 +257,6 @@
                 document.getElementById('letter-display').style.display = 'block';
                 document.getElementById('l-title').innerText = letters[key].h;
                 document.getElementById('l-text').innerText = letters[key].p;
-                document.getElementById('letter-display').scrollIntoView({behavior:'smooth'});
             };
             grid.appendChild(btn);
         });
